@@ -1,2 +1,18 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+
+<script>
+    var socket = io.connect('http://localhost:3000');
+    // 当服务端发送一条消息到客户端，message 事件即被触发。我们把消息在控制台打印出来
+    socket.on('news', function (data) {
+        console.log(data);
+        socket.emit('my other event', { my: 'data' });
+    });
+
+    socket.on('server_message', function (_message) {
+        addServerMessage(getLocalHMS(), _message);
+    });
+
+</script>
