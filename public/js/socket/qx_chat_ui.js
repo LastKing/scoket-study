@@ -126,30 +126,16 @@ $("#login-modal").on("shown.bs.modal", function (_event) {
   $('#nickname-edit').focus();
 });
 
-$('#input-edit').keydown(function(_event) {
-  if(13 == _event.keyCode) {
+$('#input-edit').keydown(function (_event) {
+  if (13 == _event.keyCode) {
     onClickSendMessage();
   }
 });
 
-$('#nickname-edit').keydown(function(_event) {
-  if(13 == _event.keyCode) {
+$('#nickname-edit').keydown(function (_event) {
+  if (13 == _event.keyCode) {
     onClickApplyNickname();
   }
 });
 
 QxEmotion($('#emotion-btn'), $('#input-edit'));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
