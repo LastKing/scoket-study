@@ -4,9 +4,15 @@
 var io = require('socket.io')();
 var xssEscape = require('xss-escape');
 
+//在线昵称列表
 var nickname_list = [];
 
-//判断已有 昵称数据
+/**
+ * 判断已有 在线昵称数据
+ * @param _nickname  新进入昵称
+ * @returns {boolean}  存在是否  true 已存在 / false 不存在
+ * @constructor
+ */
 function HasNickname(_nickname) {
   for (var i = 0; i < nickname_list.length; i++) {
     if (nickname_list[i] == _nickname) {
@@ -35,6 +41,10 @@ io.on('connection', function (_socket) {
 
   _socket.on('disconnect', function () {
     console.log(_socket.id + '离线');
+    if (_socket.nickname != null && _socket.nickname != "") {
+      _socket.broadcast.emit('user_quit', _socket.nickname);
+      RemoveNickname(_socket.nickname);
+    }
   });
 
   _socket.on('change_nickname', function (_nickname) {
@@ -84,7 +94,6 @@ io.on('connection', function (_socket) {
   });
 
 });
-
 
 module.exports = {
   listen: function (_server) {
